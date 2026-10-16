@@ -53,3 +53,52 @@ order by `Order Date` desc limit 5
 -- filter by costumers
 select * from sample
 where `Customer ID` = 'SP-20620'
+
+-- TOTAL AND STATE
+-- calcule the total state
+select sum(Sales)
+from sample;
+
+-- calcule the totoal profite
+select sum(Profit)
+from sample;
+
+-- the avargare sales per rows
+select avg(Sales)
+from sample;
+
+-- find the highest and lowest Sales values
+select Max(Sales) as Hightest_value, Min(Sales) as Lowest_values
+from sample;
+
+-- count how many defrent customers exist
+select count(distinct Segment) from sample;
+
+-- Groupt data
+-- total sales for each category
+select Category, sum(Sales) from sample
+group by Category;
+
+-- number of orders for each region
+select Region, count(`order ID`) from sample
+group by Region;
+
+-- total profit for each Segment
+select Segment, sum(Profit) from sample
+group by Segment;
+
+-- top 5 consumers by total sales
+select `Customer Name`, sum(Sales) as Total_sales from sample
+group by `Customer Name`
+order by total_sales desc 
+limit 5;
+
+
+-- customers who have more than 10 rows(use having)
+select `Customer Name`, COUNT(*) as total_rows from sample
+group by `Customer Name`
+having total_rows > 10;
+
+-- total sales for each year
+select Year(`Order Date`) as year, sum(Sales) from sample
+group by year;
